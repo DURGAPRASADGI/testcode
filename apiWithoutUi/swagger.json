@@ -1,0 +1,276 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Hello World",
+        "version": "1.0.0"
+    },
+    "tags": [
+        {
+            "name": "PUBLIC ROUTE",
+            "description": "API to get hello world message"
+        }
+    ],
+    "paths": {
+        "/health": {
+            "get": {
+                "summary": "Test health URI",
+                "description": "Testing with health check",
+                "tags": [
+                    "PUBLIC ROUTE"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Health check successful",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "health ok"
+                                        },
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "error": {
+                                            "type": "boolean",
+                                            "example": false
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/save": {
+            "post": {
+                "summary": "Test save user",
+                "description": "To Save a new user",
+                "Tags": [
+                    "PUBLIC ROUTE"
+                ],
+                "requestBody": {
+                    "description": "request body data",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "durga",
+                                        "description": "enter full name"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "durga@gmail.com",
+                                        "description": "enter valid email",
+                                        "unique": true
+                                    },
+                                    "phone": {
+                                        "type": "Number",
+                                        "example": "9876543210",
+                                        "description": "enter valid phone number"
+                                    },
+                                    "isActive": {
+                                        "type": "boolean",
+                                        "description": "check user active status",
+                                        "example": true
+                                    }
+                                },
+                                "required": [
+                                    "name",
+                                    "email",
+                                    "phone",
+                                    "isActive"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "success response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Data has inserted successfully"
+                                        },
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "error": {
+                                            "type": "boolean",
+                                            "example": false
+                                        }
+                                    },
+                                    "required": [
+                                        "message",
+                                        "success",
+                                        "error"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Error response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Data not inserted successfully"
+                                        },
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "error": {
+                                            "type": "boolean",
+                                            "example": true
+                                        }
+                                    },
+                                    "required": [
+                                        "message",
+                                        "success",
+                                        "error"
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/{id}": {
+            "put": {
+                "summary": "Update a record in the dashboard collection",
+                "description": "API to update a record in the dashboard collection by its unique ID",
+                "tags": [
+                    "DASHBOARD"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Unique ID of the record to update",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "677505a823771ee5a3e7ed5a"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Request body containing fields to update",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "description": "Name of the dashboard item",
+                                        "example": "Updated Dashboard Name"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "description": "Email associated with the dashboard item",
+                                        "example": "updatedemail@example.com"
+                                    },
+                                    "phone": {
+                                        "type": "number",
+                                        "description": "Phone number associated with the dashboard item",
+                                        "example": 9876543210
+                                    },
+                                    "isActive": {
+                                        "type": "boolean",
+                                        "description": "Status indicating if the dashboard item is active",
+                                        "example": true
+                                    }
+                                },
+                                "required": [
+                                    "name",
+                                    "email",
+                                    "phone",
+                                    "isActive"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Record updated successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "object",
+                                            "description": "MongoDB update response",
+                                            "example": {
+                                                "acknowledged": true,
+                                                "modifiedCount": 1,
+                                                "upsertedId": null,
+                                                "upsertedCount": 0,
+                                                "matchedCount": 1
+                                            }
+                                        },
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "error": {
+                                            "type": "boolean",
+                                            "example": false
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Record not found or error occurred",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "No data found"
+                                        },
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "error": {
+                                            "type": "boolean",
+                                            "example": true
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
